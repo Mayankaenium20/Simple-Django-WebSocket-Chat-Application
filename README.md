@@ -149,10 +149,3 @@ msg: Hello!
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
-
-### Additional Notes
-
-- If you use Docker for running Redis, you can add the necessary steps to spin up a Redis container.
-- Feel free to adjust the README based on any specific configurations or features you've added to your project.
-
-Let me know if you'd like to add or adjust any specific sections!

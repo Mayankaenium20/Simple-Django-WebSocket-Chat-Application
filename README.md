@@ -142,7 +142,7 @@ msg: Hello!
 
 ## Chat Demo
 
-![Chat Demo](path_to_video.mp4)
+![Chat Demo](chat_demo.mp4)
 
 ## License
 

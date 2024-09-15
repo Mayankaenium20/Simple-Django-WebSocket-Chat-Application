@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobby</title>
+</head>
+
+<body>
+
+    <h1>Chat Room</h1>
+
+    <div id="messages"></div>
+
+    <form id="form">
+        <input type="text" name="message" placeholder="Type your message here..." />
+        <button type="submit">Send</button>
+    </form>
+
+    <script type="text/javascript">
+
+        let url = `ws://${window.location.hostname}:8001/ws/socket-server/`;
+    
+        const chatSocket = new WebSocket(url);
+        chatSocket.onopen = function(e) {
+            console.log('WebSocket connection established');
+        };
+        
+        chatSocket.onerror = function(e) {
+            console.error('WebSocket error:', e);
+        };
+
+        chatSocket.onmessage = function(e) {
+            let data = JSON.parse(e.data);
+            console.log('Data received: ', data);
+        
+            if (data.type === 'chat') {
+                let messages = document.getElementById('messages');
+                console.log('Message to display:', data.message);
+                messages.insertAdjacentHTML('beforeend', `<div><p><strong>${data.user}:</strong> ${data.message}</p></div>`);
+            }
+        };
+
+        let userName = 'msg: ';
+
+        let form = document.getElementById('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let message = e.target.message.value;
+            chatSocket.send(JSON.stringify({
+                'message': message,
+                'user': userName
+            }));
+            form.reset();
+        });
+
+    </script>
+
+</body>
+</html>
